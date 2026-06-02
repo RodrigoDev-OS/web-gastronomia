@@ -1,17 +1,50 @@
 ---
-
+// 👨‍🏫 Zona de Servidor (Frontmatter)
+// Todo lo que escribamos entre los tres guiones se ejecuta en el servidor.
+// Aquí es donde importaremos iconos o llamaremos a bases de datos en el futuro.
+import { Utensils } from 'lucide-react';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastronomía Peruana</title>
+</head>
+<!-- 🎨 Cambiar Fondo Principal: Aquí controlamos el color de fondo de toda la web -->
+<body class="bg-amber-50 text-stone-800 min-h-screen font-sans">
+
+    <!-- 🧭 Barra de Navegación Simple -->
+    <nav class="bg-white shadow-sm border-b border-amber-100">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 font-bold text-amber-700 text-xl">
+                <!-- Usamos el icono de Lucide como si fuera una etiqueta HTML -->
+                <Utensils className="w-6 h-6" />
+                <span>Perú En Su Mesa</span>
+            </div>
+            <div class="flex gap-4 font-medium">
+                <a href="/" class="text-amber-700 border-b-2 border-amber-700 pb-1">Inicio</a>
+                <a href="/recetas" class="text-stone-500 hover:text-amber-700 transition-colors">Recetas</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 🌟 Contenido Principal de la Página de Inicio -->
+    <main class="max-w-4xl mx-auto px-4 py-12 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-4">
+            Aprende a preparar <span class="text-red-600">platos típicos</span>
+        </h1>
+        
+        <p class="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
+            Bienvenido al rincón culinario donde descubrirás los secretos de la gastronomía más famosa del mundo. Conoce la historia, los ingredientes y el paso a paso de nuestras joyas tradicionales.
+        </p>
+
+        <!-- 🖲️ Botón de Acción -->
+        <a href="/recetas" class="inline-flex items-center justify-center bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+            Ver el Recetario Virtual
+        </a>
+    </main>
+
+</body>
 </html>

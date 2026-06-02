@@ -1,0 +1,83 @@
+---
+// 👨‍🏫 Zona de Servidor: Traemos el puente de Supabase y el icono de cubiertos
+import { supabase } from '../lib/supabase';
+import { Utensils } from 'lucide-react';
+
+// Hacemos la consulta mágica a la base de datos
+// Traducido: "Selecciona (*) todas las columnas desde la tabla 'recetas'"
+const { data: listaRecetas, error } = await supabase.from('recetas').select('*');
+
+// 🕵️‍♂️ NUESTRO ESPÍA: Imprimirá en la terminal de VS Code lo que trajo Supabase
+console.log("=== DETECTIVE DE DATOS ===");
+console.log("¿Hay error?:", error);
+console.log("¿Qué recetas llegaron?:", listaRecetas);
+console.log("==========================");
+
+if (error) {
+  console.error("¡Ups! Error al traer las recetas:", error.message);
+}
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas Típicas - Perú En Su Mesa</title>
+</head>
+<body class="bg-amber-50 text-stone-800 min-h-screen font-sans">
+
+    <nav class="bg-white shadow-sm border-b border-amber-100">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 font-bold text-amber-700 text-xl">
+                <Utensils className="w-6 h-6" />
+                <span>Perú En Su Mesa</span>
+            </div>
+            <div class="flex gap-4 font-medium">
+                <a href="/" class="text-stone-500 hover:text-amber-700 transition-colors">Inicio</a>
+                <a href="/recetas" class="text-amber-700 border-b-2 border-amber-700 pb-1">Recetas</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-3xl font-extrabold text-stone-900 text-center mb-2">
+            Nuestro Recetario Tradicional
+        </h1>
+        <p class="text-center text-stone-600 mb-10">
+            Haz clic en cualquiera de las tarjetas para descubrir sus ingredientes y secreto de preparación.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {
+                // Bucle de JavaScript (.map): toma cada fila de Supabase y la transforma en código HTML
+                listaRecetas && listaRecetas.map((plato) => (
+                    <a 
+                        href={`/recetas/${plato.slug}`} 
+                        class="group bg-white rounded-xl shadow-md overflow-hidden border border-amber-100 transition-all hover:shadow-xl hover:-translate-y-1 block"
+                    >
+                        {/* Contenedor de la Imagen */}
+                        <div class="h-48 overflow-hidden bg-stone-200">
+                            <img 
+                                src={plato.imagen_url} 
+                                alt={plato.titulo}
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                        </div>
+                        {/* Contenedor del Texto */}
+                        <div class="p-6">
+                            <h2 class="text-xl font-bold text-stone-900 group-hover:text-amber-700 transition-colors">
+                                {plato.titulo}
+                            </h2>
+                            <p class="text-sm text-amber-600 font-medium mt-1">
+                                Ver receta paso a paso →
+                            </p>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </main>
+
+</body>
+</html>
